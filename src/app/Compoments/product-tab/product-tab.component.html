@@ -1,0 +1,47 @@
+<div class="mt-4">
+  <div class="card shadow p-3 mb-5 bg-white rounded border-0">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Product List</h2>
+      <button class="btn btn-primary" [routerLink]="['/add-product']">
+        <i class="fas fa-plus"></i> Add Product
+      </button>
+    </div>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Category</th>
+          <th>Stock Quantity</th>
+          <th>Available</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of data | paginate: { itemsPerPage: 5, currentPage: page }">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.price }} <b>dt</b></td>
+          <td>{{ product.category }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>
+            <span class="badge" [ngClass]="{'bg-success': product.available, 'bg-danger': !product.available}">
+              {{ product.available ? 'Available' : 'Out of Stock' }}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-primary btn-sm me-2" [routerLink]="['/update-product', product.id]">Edit</button>
+            <button class="btn btn-danger btn-sm" (click)="Delete(product.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls
+    previous Label="Prev"
+    nextLabel="Next"
+    (pageChange)="onTableDataChange($event)"></pagination-controls>
+  </div>
+</div>

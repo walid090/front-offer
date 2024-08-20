@@ -1,0 +1,23 @@
+<div class="body">
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-icon">
+                <img src="assets\locked.png" alt="Lock Icon">
+            </div>
+            <h2>Login</h2>
+            <form (ngSubmit)="onSubmit()">
+                <div class="input-group">
+                    <input type="text" placeholder="Username" name="username" required [(ngModel)]="username">
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Password"  name="password"  required [(ngModel)]="password">
+                </div>
+               <div class="forgot-password" *ngIf="loginFailed">
+                    <p>Password Or Username Rong</p>
+                </div>                                               
+                <button type="submit" class="login-button"><i class="fas fa-arrow-right"></i></button>
+            </form>
+        </div>
+    </div>
+ 
+</div>
