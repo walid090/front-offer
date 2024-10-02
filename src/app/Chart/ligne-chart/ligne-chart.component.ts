@@ -1,37 +1,30 @@
-import {
-  Component,
-  AfterViewInit,
-  ElementRef,
-  ViewChild,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { MyserviceService } from '../../service/myservice.service';
+
 @Component({
   selector: 'app-ligne-chart',
   templateUrl: './ligne-chart.component.html',
-  styleUrl: './ligne-chart.component.css',
+  styleUrls: ['./ligne-chart.component.css'],
 })
 export class LigneChartComponent implements OnInit {
   @ViewChild('myChart') chartRef: ElementRef | undefined;
-  constructor(private myService: MyserviceService) {}
-  ngOnInit(): void {
-    this.CreateChart();
-  }
-  label: string[] = [];
   value: number[] = [];
+  months: string[] = [];
 
-  ngAfterViewInit(): void {
-    this.CreateChart();
-  }
-  CreateChart() {
+  constructor(private myService: MyserviceService) {}
+
+  ngOnInit(): void {
+    this.months = this.getLastSixMonths();
     this.GetData();
+  }
+
+  CreateChart() {
     if (this.chartRef?.nativeElement) {
       new Chart(this.chartRef.nativeElement, {
         type: 'line',
-
         data: {
-          labels: this.getLastSixMonths(),
+          labels: this.months,
           datasets: [
             {
               label: 'Revenue By Month',
@@ -63,6 +56,7 @@ export class LigneChartComponent implements OnInit {
       });
     }
   }
+
   getLastSixMonths(): string[] {
     const months = [
       'January',
@@ -78,7 +72,7 @@ export class LigneChartComponent implements OnInit {
       'November',
       'December',
     ];
-    const currentMonth = new Date().getMonth(); // Get current month (0-indexed)
+    const currentMonth = new Date().getMonth();
     const lastSixMonths = [];
 
     for (let i = 0; i < 6; i++) {
@@ -87,12 +81,17 @@ export class LigneChartComponent implements OnInit {
 
     return lastSixMonths;
   }
+
   GetData() {
-    this.getLastSixMonths().forEach((month) => {
-      this.myService.GetRevenueByMonth(month).subscribe((response) => {
-        this.value.push(response);
-        console.log(this.value);
-      });
+    const dataObservables = this.months.map((month) =>
+      this.myService.GetRevenueByMonth(month).toPromise()
+    );
+
+    Promise.all(dataObservables).then((responses) => {
+      this.value = responses.filter((response): response is number => response !== undefined);
+      this.CreateChart();
+    }).catch(error => {
+      console.error('Error fetching data:', error);
     });
   }
 }

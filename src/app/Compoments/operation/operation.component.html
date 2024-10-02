@@ -1,0 +1,108 @@
+<div class="bg">
+<div class="container p-2">
+    <app-navbar></app-navbar>
+
+
+      <div class="mt-4">
+        
+        <div class="card shadow p-3 mb-5 bg-white rounded border-0">
+            <h2 class="mb-5 text-center" style="color: #007bff; font-weight: bolder;">Add New Operation</h2>
+            <form (ngSubmit)="addOperation()" #productForm1="ngForm" class="form-horizontal">
+              <div class="row mt-5 mb-3">
+                <div class="form-group col-md-6">
+                  <label for="name" class="mb-2">Product Name</label>
+                  <select
+                    id="description"
+                    class=" form-select"
+                    required
+                    name="product"
+                    [ngModelOptions]="{standalone: true}" 
+                    [(ngModel)]="product"
+                  >
+                  <option *ngFor="let product of data1" [ngValue]="product">{{ product.name }}</option>
+
+                </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="Type" class="mb-2">Operation Type</label>
+                  <select
+                    id="description"
+                    name="stockAction"
+                    class=" form-select"
+                    [(ngModel)]="stockAction"
+                    (change)="handleStockChange($event)"
+                    required
+                  >
+                <option value="Add">Add Stock</option>
+                <option value="out">stock out </option>
+                </select>
+                </div>
+              </div>
+
+              <div class="row mt-5 mb-3">
+                <div class="form-group col-md-6">
+                
+                  <label for="quantity" class="mb-2">Quantity </label>
+                  <input
+                    type="number"
+                    name="quantity"
+                    id="quantity"
+                    class="form-control"
+                    placeholder="Enter quantity "
+                    name="quantity"
+                    [(ngModel)]="quantity"
+                    required
+                  />
+                </div>
+               
+                <div class="form-group col-md-6">
+                    <div *ngIf="in"> 
+                  <label for="Type" class="mb-2">Supplier name</label>
+                 
+                  <select
+                    id="description"
+                    class=" form-select"
+                    required
+                    name="supplier"
+                    [ngModelOptions]="{standalone: true}" 
+                    [(ngModel)]="SupplierName"
+                  >
+                  <option *ngFor="let supplier of dataSupplier" [ngValue]="supplier">{{ supplier.name }}</option>
+
+            
+                </select>
+
+                    </div>
+                    <div *ngIf="out"> 
+                        <label for="Type" class="mb-2">Customer name</label>
+                       
+                        <select
+                          id="description"
+                          class=" form-select"
+                          name="CustomerName"
+                          [(ngModel)]="CustomerName"
+                          required
+                        >
+                        <option *ngFor="let customer of dataCustomer" [ngValue]="customer">{{ customer.name }}</option>
+                  
+                      </select>
+      
+                          </div>
+                 </div>
+                </div>
+                <div class="row justify-content-center mt-5 mb-5">
+                    <div class="col-auto">
+                      <button type="submit" class="btn btn-primary mr-2 btn-lg">Add Operation <i class="fa-solid fa-plus"></i></button>
+                    </div>
+                    <div class="col-auto">
+                      <button class="btn btn-danger btn-lg" type="button" (click)="Cancel()">Cancel <i class="fas fa-times"></i></button>
+                    </div>
+                  </div>
+              
+                  </form>
+      </div>
+   
+      </div>
+
+    </div>
+  </div>

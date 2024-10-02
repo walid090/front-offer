@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { MyserviceService } from '../../service/myservice.service';
 
@@ -7,15 +7,16 @@ import { MyserviceService } from '../../service/myservice.service';
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.css'],
 })
-export class BarChartComponent implements AfterViewInit {
+export class BarChartComponent implements OnInit {
   @ViewChild('myChart') chartRef: ElementRef | undefined;
   categories: string[] = [];
-  value:number[]=[]
+  value: number[] = [];
+  chart: Chart | undefined;
+
   constructor(private myService: MyserviceService) {}
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.ReadData();
-    this.CreateChart();
   }
 
   ReadData() {
@@ -24,19 +25,23 @@ export class BarChartComponent implements AfterViewInit {
       this.FillData();
     });
   }
+
   FillData() {
-    this.categories.forEach(category => {
-      this.myService.GetStockByCategory(category).subscribe(response => {
-        this.value.push(response);
-        //console.log(this.value)
-      });
+    const stockObservables = this.categories.map(category =>
+      this.myService.GetStockByCategory(category).toPromise()
+    );
+
+    Promise.all(stockObservables).then(values => {
+      this.value = values.filter((value): value is number => value !== undefined);
+      this.CreateChart();
+    }).catch(error => {
+      console.error('Error fetching stock data:', error);
     });
-   
   }
 
   CreateChart() {
     if (this.chartRef?.nativeElement) {
-      new Chart(this.chartRef.nativeElement, {
+      this.chart = new Chart(this.chartRef.nativeElement, {
         type: 'bar',
         data: {
           labels: this.categories,

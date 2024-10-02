@@ -16,7 +16,6 @@ export class UpdateProductComponent implements OnInit {
   ngOnInit(): void {
     this.myService.getCategories().subscribe((data: string[]) => {
       this.categories = data;
-      //this.newProduct.category = this.categories[0]; // Fallback to the first category if default is invalid
     });
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
@@ -33,7 +32,7 @@ export class UpdateProductComponent implements OnInit {
     category: '',
     quantity: 0,
     available: true,
-    dateAdded:new Date()
+    dateAdded: new Date(),
   };
   constructor(
     private myService: MyserviceService,
