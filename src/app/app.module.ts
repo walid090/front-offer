@@ -11,25 +11,28 @@ import { LoginComponent } from './Compoments/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BarChartComponent } from './Chart/bar-chart/bar-chart.component';
 import { AdminDashbordComponent } from './Compoments/admin-dashbord/admin-dashbord.component';
-import { ProductTabComponent } from './Compoments/product-tab/product-tab.component';
-import { AddProductComponent } from './Compoments/add-product/add-product.component';
-import { UpdateProductComponent } from './Compoments/update-product/update-product.component';
+
 import { LigneChartComponent } from './Chart/ligne-chart/ligne-chart.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './Compoments/navbar/navbar.component';
-import { OperationComponent } from './Compoments/operation/operation.component';
-import { SupplierComponent } from './Compoments/supplier/supplier.component';
-import { CustomerComponent } from './Compoments/customer/customer.component';
+ 
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ReportsComponent } from './Compoments/reports/reports.component';
-import { UpdateCustomerComponent } from './Compoments/update-customer/update-customer.component';
-import { UpdateSupplierComponent } from './Compoments/update-supplier/update-supplier.component';
-import { AddCustomerComponent } from './Compoments/add-customer/add-customer.component';
-import { AddSupplierComponent } from './Compoments/add-supplier/add-supplier.component';
+ 
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { PasswordModule } from 'primeng/password';
+import { PanelModule } from 'primeng/panel';
+import { OfferComponent } from './Compoments/offer/offer.component'; // Import PanelModule
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CalendarModule } from 'primeng/calendar';
+import { CheckboxModule } from 'primeng/checkbox';
+import { OfferTabComponent } from './Compoments/offer-tab/offer-tab.component';
+import { ReservationTabComponent } from './Compoments/reservation-tab/reservation-tab.component';
+import { FileUploadModule } from 'primeng/fileupload'; // Import FileUploadModule
 
 @NgModule({
   declarations: [
@@ -37,18 +40,10 @@ import { AddSupplierComponent } from './Compoments/add-supplier/add-supplier.com
     LoginComponent,
     BarChartComponent,
     AdminDashbordComponent,
-    ProductTabComponent,
-    AddProductComponent,
-    UpdateProductComponent,
     LigneChartComponent,
-    OperationComponent,
-    SupplierComponent,
-    CustomerComponent,
-    ReportsComponent,
-    UpdateCustomerComponent,
-    UpdateSupplierComponent,
-    AddCustomerComponent,
-    AddSupplierComponent,
+    OfferComponent,
+    OfferTabComponent,
+    ReservationTabComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +54,16 @@ import { AddSupplierComponent } from './Compoments/add-supplier/add-supplier.com
     NgxPaginationModule,
     BrowserAnimationsModule,
     NavbarComponent,
+    FormsModule,
+    InputTextModule,
+    ButtonModule,
+    PasswordModule,
+    PanelModule,
+    ButtonModule,
+    InputTextareaModule,
+    CalendarModule,
+    CheckboxModule,
+    FileUploadModule,
   ],
   providers: [provideClientHydration(), provideAnimationsAsync()],
   bootstrap: [AppComponent],

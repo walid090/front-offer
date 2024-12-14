@@ -1,23 +1,18 @@
-<div class="body">
-    <div class="login-container">
-        <div class="login-box">
-            <div class="login-icon">
-                <img src="assets\locked.png" alt="Lock Icon">
-            </div>
-            <h2>Login</h2>
-            <form (ngSubmit)="onSubmit()">
-                <div class="input-group">
-                    <input type="text" placeholder="Username" name="username" required [(ngModel)]="username">
-                </div>
-                <div class="input-group">
-                    <input type="password" placeholder="Password"  name="password"  required [(ngModel)]="password">
-                </div>
-               <div class="forgot-password" *ngIf="loginFailed">
-                    <p>Password Or Username Rong</p>
-                </div>                                               
-                <button type="submit" class="login-button"><i class="fas fa-arrow-right"></i></button>
-            </form>
+<div class="login-container">
+    <p-panel header="Login">
+      <div class="p-fluid">
+        <div class="p-field">
+          <label for="username">Username</label>
+          <input id="username" type="text" pInputText [(ngModel)]="username" />
         </div>
-    </div>
- 
-</div>
+        <div class="p-field">
+          <label for="password">Password</label>
+          <p-password id="password" [(ngModel)]="password" toggleMask="true"></p-password>
+        </div>
+        <div class="p-field mt-3">
+          <button pButton label="Login" (click)="login()" [disabled]="!username || !password"></button>
+        </div>
+      </div>
+    </p-panel>
+  </div>
+  

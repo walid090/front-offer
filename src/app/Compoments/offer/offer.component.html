@@ -1,0 +1,63 @@
+<div class="container">
+  <h2 class="my-5 text-center">Add Hotel Offer</h2>
+  <div header="Add Hotel Offer" [style]="{'height': '100%', 'width': '100%'}" styleClass="no-border">
+    <div class="p-fluid">
+      <!-- Offer Name -->
+      <div class="p-field">
+        <label for="offerName">Offer Name</label>
+        <input id="offerName" type="text" pInputText [(ngModel)]="offer.name" placeholder="Enter offer name" />
+      </div>
+
+      <!-- Offer Description -->
+      <div class="p-field">
+        <label for="offerDescription">Description</label>
+        <textarea id="offerDescription" pInputTextarea [(ngModel)]="offer.description" placeholder="Enter offer description"></textarea>
+      </div>
+
+      <!-- Offer Price -->
+      <div class="p-field">
+        <label for="offerPrice">Price</label>
+        <input id="offerPrice" type="number" pInputText [(ngModel)]="offer.price" placeholder="Enter offer price" />
+      </div>
+
+      <!-- Offer Start Date -->
+      <div class="p-field">
+        <label for="startDate">Start Date</label>
+        <p-calendar id="startDate" [(ngModel)]="offer.startDate" dateFormat="yy-mm-dd"></p-calendar>
+      </div>
+
+      <!-- Offer End Date -->
+      <div class="p-field">
+        <label for="endDate">End Date</label>
+        <p-calendar id="endDate" [(ngModel)]="offer.endDate" dateFormat="yy-mm-dd"></p-calendar>
+      </div>
+
+      <!-- Image Picker -->
+      <div class="p-field">
+        <label for="imageUpload">Offer Image</label>
+        <p-fileUpload
+          id="imageUpload"
+          name="image"
+          mode="basic"
+          accept="image/*"
+          maxFileSize="1000000"
+          (onSelect)="onImageSelect($event)"
+          chooseLabel="Choose Image"
+        ></p-fileUpload>
+      </div>
+
+      <!-- Active Status -->
+      <div class="p-field-checkbox">
+        <p-checkbox label="Active" [(ngModel)]="offer.isActive"></p-checkbox>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="p-field mt-5">
+        <button pButton label="Submit Offer" icon="pi pi-check" (click)="submitOffer()" ></button>
+      </div>
+      <div class="p-field">
+        <button pButton label="Cancel" icon="pi pi-times" severity="danger" (click)="Cancel()"></button>
+      </div>
+    </div>
+  </div>
+</div>

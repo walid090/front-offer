@@ -16,7 +16,7 @@ export class LigneChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.months = this.getLastSixMonths();
-    this.GetData();
+    //this.GetData();
   }
 
   CreateChart() {
@@ -82,7 +82,7 @@ export class LigneChartComponent implements OnInit {
     return lastSixMonths;
   }
 
-  GetData() {
+  /*GetData() {
     const dataObservables = this.months.map((month) =>
       this.myService.GetRevenueByMonth(month).toPromise()
     );
@@ -93,5 +93,5 @@ export class LigneChartComponent implements OnInit {
     }).catch(error => {
       console.error('Error fetching data:', error);
     });
-  }
+  }*/
 }

@@ -2,11 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../Entity/user';
-import { Product } from '../Entity/Product';
-import { map } from 'rxjs/operators';
-import { Customer } from '../Entity/Customer';
-import { Supplier } from '../Entity/Supplier';
-import { Stock } from '../Entity/Stock';
+ 
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +14,7 @@ export class MyserviceService {
     return this.http.post<User>('http://localhost:9000/Dashbord/Auth', data);
   }
 
-  AddProduct(product: Product): Observable<Product> {
+  /*AddProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(
       'http://localhost:9000/Dashbord/AddProduct',
       product
@@ -69,7 +65,7 @@ export class MyserviceService {
 
   /* customer part*/
 
-  AddCustomer(customer: Customer): Observable<Customer> {
+  /*AddCustomer(customer: Customer): Observable<Customer> {
     return this.http.post<Customer>(
       'http://localhost:9000/Dashbord/AddCustomer',
       customer
@@ -102,7 +98,7 @@ export class MyserviceService {
   }
 
   /* provider part **/
-  AddSupplier(supplier: Supplier): Observable<Supplier> {
+  /*AddSupplier(supplier: Supplier): Observable<Supplier> {
     return this.http.post<Supplier>(
       'http://localhost:9000/Dashbord/AddSupplier',
       supplier
@@ -134,16 +130,5 @@ export class MyserviceService {
     );
   }
 
-  /* STOCK */
-  AddStock(stock: any): Observable<any> {
-    return this.http.post<any>(
-      'http://localhost:9000/Dashbord/AddStock',
-      stock
-    );
-  }
-  GetStockByProductIdAndType(data: any): Observable<Stock[]> {
-    return this.http.get<Stock[]>(
-      `http://localhost:9000/Dashbord/GetStockByProductIdAndType/${data.id}/${data.type}`
-    );
-  }
+  */
 }

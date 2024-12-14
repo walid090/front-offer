@@ -1,0 +1,29 @@
+.offer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    height: 100vh;
+    padding: 20px;
+  }
+  
+  .p-panel {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    border: none; /* Removes the border */
+  }
+  
+  .p-panel-header {
+    text-align: center; /* Centers the title */
+  }
+  
+  .p-field {
+    margin-bottom: 1em;
+  }
+  
+  .p-button {
+    width: 100%;
+  }
+  

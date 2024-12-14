@@ -16,10 +16,10 @@ export class BarChartComponent implements OnInit {
   constructor(private myService: MyserviceService) {}
 
   ngOnInit(): void {
-    this.ReadData();
+    //this.ReadData();
   }
 
-  ReadData() {
+  /*ReadData() {
     this.myService.getCategories().subscribe((data: string[]) => {
       this.categories = data;
       this.FillData();
@@ -80,5 +80,5 @@ export class BarChartComponent implements OnInit {
     } else {
       console.error('Failed to find the canvas element');
     }
-  }
+  }*/
 }

@@ -29,21 +29,14 @@ export class NavbarComponent {
 
   sidebarVisible: boolean = false;
 
-  navigateToProductTab() {
-    this.router.navigate(['/product-tab']);
+  navigateToOfferTab() {
+    this.router.navigate(['/offer_tab']);
   }
-  navigateToCustomerTab() {
-    this.router.navigate(['/customer-tab']);
+
+  navigateToReservation() {
+    this.router.navigate(['/reservation_tab']);
   }
-  navigateToSupplierTab() {
-    this.router.navigate(['/supplier-tab']);
-  }
-  navigateToReports() {
-    this.router.navigate(['/reports']);
-  }
-  navigateToStock() {
-    this.router.navigate(['/stock']);
-  }
+
   navigateToState() {
     this.router.navigate(['/dashbord']);
   }
