@@ -18,21 +18,22 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './Compoments/navbar/navbar.component';
- 
+
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
- 
+
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
 import { PanelModule } from 'primeng/panel';
-import { OfferComponent } from './Compoments/offer/offer.component'; // Import PanelModule
+import { OfferComponent } from './Compoments/offer-add/offer.component'; // Import PanelModule
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { OfferTabComponent } from './Compoments/offer-tab/offer-tab.component';
 import { ReservationTabComponent } from './Compoments/reservation-tab/reservation-tab.component';
-import { FileUploadModule } from 'primeng/fileupload'; // Import FileUploadModule
+import { FileUploadModule } from 'primeng/fileupload';
+import { OfferUpdateComponent } from './Compoments/offer-update/offer-update.component'; // Import FileUploadModule
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { FileUploadModule } from 'primeng/fileupload'; // Import FileUploadModul
     OfferComponent,
     OfferTabComponent,
     ReservationTabComponent,
+    OfferUpdateComponent,
   ],
   imports: [
     BrowserModule,

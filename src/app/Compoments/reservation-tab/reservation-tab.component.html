@@ -11,17 +11,40 @@
         <table class="table table-striped table-bordered">
           <thead>
             <tr>
-              <th>Offer Name</th>
-              <th>demandeur</th>
-              <th>offre name</th>
+              <th>id</th>
+              <th>user name</th>
               <th>Date</th>
-              <th>statut</th>
-              <th>price</th>
+              <th>offer name</th>
+              <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
-           
+          <tbody >
+            <tr *ngFor="let resv of data  | paginate: { itemsPerPage: 5, currentPage: page } ; let i = index"       [ngStyle]="{ 'background-color': resv.statut === 'Refuse' ? '#ffe6e6' : resv.statut === 'Accept' ? '#e6ffe6' : 'white' }">
+              
+              <td>{{ resv.id }}</td>
+              <td>{{ resv.user.username }}</td>
+             
+              <td>{{ resv.date | date:'yyyy-MM-dd'}} </td>
+              <td>{{resv.hotelOffer.name}}</td>
+              <td>
+                <span class="badge" [ngClass]="{'bg-success': resv.statut=='Accept', 'bg-primary': resv.statut=='Padding', 'bg-danger': resv.statut=='Refuse'}">
+                  {{ resv.statut}}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-primary btn-sm me-2" (click)="UpdateStatut('Accept', resv)">
+                  <i class="fas fa-check"></i> Accept
+                </button>
+                <button class="btn btn-warning btn-sm me-2" (click)="UpdateStatut('Refuse', resv)">
+                  <i class="fas fa-times"></i> Refuse
+                </button>
+                <button class="btn btn-danger btn-sm" (click)="Delete(resv.id)">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+                
+              </td>
+            </tr>
           </tbody>
         </table>
         <pagination-controls

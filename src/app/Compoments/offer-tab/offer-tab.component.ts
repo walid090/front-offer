@@ -15,15 +15,43 @@ export class OfferTabComponent {
 
   constructor(private myService: MyserviceService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.ReadData();
+  }
+  ReadData() {
+    this.myService.getAllHotelOffers().subscribe(
+      (response) => {
+        if (response) {
+          console.log('Response from API', response);
+          this.data = response;
+        }
+      },
+      (error) => {
+        console.error('Error fetching data', error);
+      }
+    );
+  }
 
   onTableDataChange(event: any) {
     this.page = event;
-    //this.ReadData();
+    this.ReadData();
   }
   TableSizeChange(event: any): void {
     this.tableSize = event.target.value;
     this.page = 1;
-    // this.ReadData();
+    this.ReadData();
+  }
+
+  Delete(id: number) {
+    this.myService.deleteHotelOffer(id).subscribe(
+      (response) => {
+        console.log('Response from API', response);
+        this.data = this.data.filter((offer) => offer.id !== id);
+        location.reload();
+      },
+      (error) => {
+        console.error('Error deleting data', error);
+      }
+    );
   }
 }

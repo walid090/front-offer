@@ -5,6 +5,6 @@ export interface HotelOffer {
   price: number;
   startDate: Date;
   endDate: Date;
-  image: File;
-  isActive: boolean; // to indicate whether the offer is currently active
+  image:  String;
+  active: boolean; // to indicate whether the offer is currently active
 }

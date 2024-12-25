@@ -41,14 +41,17 @@
           mode="basic"
           accept="image/*"
           maxFileSize="1000000"
-          (onSelect)="onImageSelect($event)"
+          (onSelect)="onImageSelect($event)" 
           chooseLabel="Choose Image"
         ></p-fileUpload>
       </div>
 
-      <!-- Active Status -->
-      <div class="p-field-checkbox">
-        <p-checkbox label="Active" [(ngModel)]="offer.isActive"></p-checkbox>
+    
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" [(ngModel)]="offer.active">
+        <label class="form-check-label" for="flexCheckDefault">
+          Active
+        </label>
       </div>
 
       <!-- Submit Button -->

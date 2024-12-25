@@ -1,4 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { MyserviceService } from '../../service/myservice.service';
 
@@ -7,16 +13,16 @@ import { MyserviceService } from '../../service/myservice.service';
   templateUrl: './ligne-chart.component.html',
   styleUrls: ['./ligne-chart.component.css'],
 })
-export class LigneChartComponent implements OnInit {
+export class LigneChartComponent implements AfterViewInit {
   @ViewChild('myChart') chartRef: ElementRef | undefined;
-  value: number[] = [];
-  months: string[] = [];
+  values: number[] = [];
+  labels: string[] = [];
+  data: any;
 
   constructor(private myService: MyserviceService) {}
 
-  ngOnInit(): void {
-    this.months = this.getLastSixMonths();
-    //this.GetData();
+  ngAfterViewInit(): void {
+    this.GetData();
   }
 
   CreateChart() {
@@ -24,13 +30,13 @@ export class LigneChartComponent implements OnInit {
       new Chart(this.chartRef.nativeElement, {
         type: 'line',
         data: {
-          labels: this.months,
+          labels: this.labels,
           datasets: [
             {
-              label: 'Revenue By Month',
+              label: 'Number of Reservations by Day',
               backgroundColor: 'rgba(75, 192, 192, 0.2)',
               borderColor: 'rgba(75, 192, 192, 1)',
-              data: this.value,
+              data: this.values,
             },
           ],
         },
@@ -41,14 +47,14 @@ export class LigneChartComponent implements OnInit {
               display: true,
               title: {
                 display: true,
-                text: 'Month',
+                text: 'Date',
               },
             },
             y: {
               display: true,
               title: {
                 display: true,
-                text: 'Value In DT',
+                text: 'Number of Reservations',
               },
             },
           },
@@ -57,41 +63,24 @@ export class LigneChartComponent implements OnInit {
     }
   }
 
-  getLastSixMonths(): string[] {
-    const months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-    const currentMonth = new Date().getMonth();
-    const lastSixMonths = [];
+  GetData() {
+    this.myService.CountReservationsbyByMonths(11).subscribe((response) => {
+      this.data = response;
+      console.log(this.data);
 
-    for (let i = 0; i < 6; i++) {
-      lastSixMonths.unshift(months[(currentMonth - i + 12) % 12]);
-    }
+      // Process the data to extract labels (dates) and values (counts)
+      // Extract the labels (dates) and format them to "YYYY-MM-DD"
+      this.labels = Object.keys(this.data).map((dateStr) => {
+        const date = new Date(dateStr); // Convert the date string to a Date object
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Add leading zero if necessary
+        const day = date.getDate().toString().padStart(2, '0'); // Add leading zero if necessary
+        return `${year}-${month}-${day}`; // Return formatted date
+      });
+      this.values = Object.values(this.data); // Counts
 
-    return lastSixMonths;
-  }
-
-  /*GetData() {
-    const dataObservables = this.months.map((month) =>
-      this.myService.GetRevenueByMonth(month).toPromise()
-    );
-
-    Promise.all(dataObservables).then((responses) => {
-      this.value = responses.filter((response): response is number => response !== undefined);
+      // Now, create the chart with the processed data
       this.CreateChart();
-    }).catch(error => {
-      console.error('Error fetching data:', error);
     });
-  }*/
+  }
 }

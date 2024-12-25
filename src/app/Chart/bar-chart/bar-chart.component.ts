@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { MyserviceService } from '../../service/myservice.service';
 
@@ -7,35 +7,29 @@ import { MyserviceService } from '../../service/myservice.service';
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.css'],
 })
-export class BarChartComponent implements OnInit {
+export class BarChartComponent implements AfterViewInit {
   @ViewChild('myChart') chartRef: ElementRef | undefined;
   categories: string[] = [];
-  value: number[] = [];
+ 
   chart: Chart | undefined;
+  data: any;
 
   constructor(private myService: MyserviceService) {}
 
-  ngOnInit(): void {
-    //this.ReadData();
+  ngAfterViewInit(): void {
+    this.ReadData();
   }
 
-  /*ReadData() {
-    this.myService.getCategories().subscribe((data: string[]) => {
-      this.categories = data;
-      this.FillData();
-    });
-  }
-
-  FillData() {
-    const stockObservables = this.categories.map(category =>
-      this.myService.GetStockByCategory(category).toPromise()
-    );
-
-    Promise.all(stockObservables).then(values => {
-      this.value = values.filter((value): value is number => value !== undefined);
+  ReadData() {
+    this.myService.CountReservationsbyStatus().subscribe((response) => {
+      this.data = response;
+      console.log(this.data.Padding); // Make sure 'Padding' exists in the response
+      this.categories = [
+        'Padding',
+        'Refuse',
+        'Accept',
+      ]; // Example categories, update with actual data
       this.CreateChart();
-    }).catch(error => {
-      console.error('Error fetching stock data:', error);
     });
   }
 
@@ -47,24 +41,21 @@ export class BarChartComponent implements OnInit {
           labels: this.categories,
           datasets: [
             {
-              label: 'Stock By Category',
-              data: this.value,
+              label: 'Trend By Status',
+              data: this.data,
               borderWidth: 1,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
+             
               ],
               borderColor: [
                 'rgba(255, 99, 132, 1)',
                 'rgba(54, 162, 235, 1)',
                 'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
+
               ],
             },
           ],
@@ -80,5 +71,5 @@ export class BarChartComponent implements OnInit {
     } else {
       console.error('Failed to find the canvas element');
     }
-  }*/
+  }
 }
