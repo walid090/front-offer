@@ -64,7 +64,8 @@ export class LigneChartComponent implements AfterViewInit {
   }
 
   GetData() {
-    this.myService.CountReservationsbyByMonths(11).subscribe((response) => {
+    const currentMonth = new Date().getMonth()
+    this.myService.CountReservationsbyByMonths(currentMonth).subscribe((response) => {
       this.data = response;
       console.log(this.data);
 

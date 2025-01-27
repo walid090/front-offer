@@ -32,8 +32,11 @@
           <p-calendar id="endDate" [(ngModel)]="offer.endDate" dateFormat="yy-mm-dd"></p-calendar>
         </div>
   
-        <!-- Image Picker -->
-        <div class="p-field">
+
+        <div class="image-container my-4">
+          <img [src]="'http://localhost:9000/offers/images/' + offer.image" alt="Card Image" style="width: 400px; height: auto;" />
+         <!-- Image Picker -->
+         <div class="p-field">
           <label for="imageUpload">Offer Image</label>
           <p-fileUpload
             id="imageUpload"
@@ -45,6 +48,9 @@
             chooseLabel="Choose Image"
           ></p-fileUpload>
         </div>
+        </div>
+        
+       
   
         <div class="form-check">
           <input class="form-check-input" type="checkbox" [(ngModel)]="offer.active">
@@ -57,7 +63,7 @@
         <div class="p-field mt-5">
           <button pButton label="Update Offer" icon="pi pi-check" (click)="submitOffer()" ></button>
         </div>
-        <div class="p-field">
+        <div class="p-field mt-3">
           <button pButton label="Cancel" icon="pi pi-times" severity="danger" (click)="Cancel()"></button>
         </div>
       </div>

@@ -13,6 +13,7 @@ export class OfferUpdateComponent implements OnInit {
     private myService: MyserviceService,
     private route: ActivatedRoute
   ) {}
+  old_image: any;
 
   offer: HotelOffer = {
     id: 0,
@@ -40,6 +41,7 @@ export class OfferUpdateComponent implements OnInit {
           this.offer = response;
           this.offer.startDate = new Date(this.offer.startDate);
           this.offer.endDate = new Date(this.offer.endDate);
+          this.old_image = response.image;
         }
       },
       (error) => {
@@ -53,31 +55,53 @@ export class OfferUpdateComponent implements OnInit {
       const formData = new FormData();
       formData.append('file', this.selectedFile);
 
-      // First, upload the image
+      // Upload the image
       this.myService.uploadImage(formData).subscribe(
         (response: any) => {
           console.log('Image uploaded successfully:', response);
 
           // Set the image path in the offer
           this.offer.image = response.fileName;
+          console.log('Updated image path:', this.offer.image);
+
+          this.myService.deleteImage(this.old_image).subscribe(
+            (response) => {
+              console.log('Response from API Image', response);
+            },
+            (error) => {
+              console.error('Error deleting data', error);
+            }
+          );
+
+          // Now, create or update the offer
+          this.myService.updateHotelOffer(this.offer).subscribe(
+            (offerResponse) => {
+              console.log('Offer updated successfully:', offerResponse);
+              this.router.navigate(['/offer_tab']);
+            },
+            (error) => {
+              console.error('Error updating offer:', error);
+            }
+          );
         },
         (error) => {
           console.error('Error uploading image:', error);
         }
       );
+    } else {
+      // If no new image is selected, keep the old image value and update the offer
+      this.myService.updateHotelOffer(this.offer).subscribe(
+        (offerResponse) => {
+          console.log('Offer updated successfully:', offerResponse);
+          this.router.navigate(['/offer_tab']);
+        },
+        (error) => {
+          console.error('Error updating offer:', error);
+        }
+      );
     }
-
-    // Now, create the offer
-    this.myService.updateHotelOffer(this.offer).subscribe(
-      (offerResponse) => {
-        console.log('Offer update successfully:', offerResponse);
-        this.router.navigate(['/offer_tab']);
-      },
-      (error) => {
-        console.error('Error creating offer:', error);
-      }
-    );
   }
+
   onImageSelect(event: any) {
     if (event.files && event.files.length > 0) {
       const file = event.files[0];

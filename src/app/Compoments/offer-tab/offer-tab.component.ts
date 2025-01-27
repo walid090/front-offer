@@ -12,7 +12,7 @@ export class OfferTabComponent {
   count: number = 0;
   tableSize: number = 5;
   tableSizes: any = [5, 10, 15, 20];
-
+  old_image: any = '';
   constructor(private myService: MyserviceService) {}
 
   ngOnInit(): void {
@@ -43,6 +43,18 @@ export class OfferTabComponent {
   }
 
   Delete(id: number) {
+    this.myService.getHotelOfferById(id).subscribe((response) => {
+      this.old_image = response.image;
+    });
+    this.myService.deleteImage(this.old_image).subscribe(
+      (response) => {
+        console.log('Response from API Image', response);
+      },
+      (error) => {
+        console.error('Error deleting data', error);
+      }
+    );
+
     this.myService.deleteHotelOffer(id).subscribe(
       (response) => {
         console.log('Response from API', response);

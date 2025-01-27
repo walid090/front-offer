@@ -34,6 +34,12 @@ import { OfferTabComponent } from './Compoments/offer-tab/offer-tab.component';
 import { ReservationTabComponent } from './Compoments/reservation-tab/reservation-tab.component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { OfferUpdateComponent } from './Compoments/offer-update/offer-update.component'; // Import FileUploadModule
+import { UserInterfaceComponent } from './Compoments/user-interface/user-interface.component';
+import { CardOfferComponent } from './Compoments/card-offer/card-offer.component';
+import { DialogModule } from 'primeng/dialog'; // Import DialogModule
+import { CardModule } from 'primeng/card'; // Import CardModule
+import { RegisterComponent } from './Compoments/register/register.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -46,6 +52,9 @@ import { OfferUpdateComponent } from './Compoments/offer-update/offer-update.com
     OfferTabComponent,
     ReservationTabComponent,
     OfferUpdateComponent,
+    UserInterfaceComponent,
+    CardOfferComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +65,6 @@ import { OfferUpdateComponent } from './Compoments/offer-update/offer-update.com
     NgxPaginationModule,
     BrowserAnimationsModule,
     NavbarComponent,
-    FormsModule,
     InputTextModule,
     ButtonModule,
     PasswordModule,
@@ -66,6 +74,9 @@ import { OfferUpdateComponent } from './Compoments/offer-update/offer-update.com
     CalendarModule,
     CheckboxModule,
     FileUploadModule,
+    DialogModule,
+    CardModule,
+    TooltipModule
   ],
   providers: [provideClientHydration(), provideAnimationsAsync()],
   bootstrap: [AppComponent],

@@ -1,0 +1,30 @@
+<h1 class="text-center my-5">Register</h1>
+
+<div class="container">
+  <form (ngSubmit)="register()">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="username">Username</label>
+        <input pInputText id="username" [(ngModel)]="user.username" name="username" [pattern]="usernamePattern" required minlength="3" />
+      </div>
+
+      <div class="p-field">
+        <label for="password">Password</label>
+        <input pPassword id="password" [(ngModel)]="user.password" name="password" [pattern]="passwordPattern" required minlength="6" />
+      </div>
+
+      <div class="p-field">
+        <label for="phoneNumber">Phone Number</label>
+        <input pInputText id="phoneNumber" [(ngModel)]="user.phone_number" name="phoneNumber" [pattern]="phonePattern" />
+      </div>
+
+      <div class="p-field">
+        <label for="email">Email</label>
+        <input pInputText id="email" [(ngModel)]="user.email" name="email" [pattern]="emailPattern" required email />
+      
+      </div>
+
+      <button pButton type="submit" class="my-5" label="Register" [disabled]="!user.username || !user.password || user.password.length < 6"></button>
+    </div>
+  </form>
+</div>

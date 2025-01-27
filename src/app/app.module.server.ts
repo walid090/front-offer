@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
-  imports: [BrowserModule, BrowserAnimationsModule, AppModule, ServerModule],
+  imports: [BrowserModule, BrowserAnimationsModule, ServerModule],
   bootstrap: [AppComponent],
 })
 export class AppServerModule {}

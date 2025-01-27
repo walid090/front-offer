@@ -1,0 +1,26 @@
+<p-card header={{offer.name}} subheader={{offer.description}} >
+  <ng-template pTemplate="header">
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <img [src]="'http://localhost:9000/offers/images/' + offer.image" alt="Card Image" style="width: 350px; height: auto;" />
+    </div>
+</ng-template>
+  <p>From <b>{{offer.startDate | date:'mediumDate'}}</b> To  <b>{{offer.endDate | date:'mediumDate'}}</b></p>
+  <p>price <b>{{offer.price}} dt</b></p> 
+  <ng-template pTemplate="footer">
+    <p-button label="Reservation" icon="pi pi-external-link" (click)="display = true"></p-button>
+  </ng-template>
+</p-card>
+
+<p-dialog header="Confirm Reservation" [(visible)]="display" [modal]="true" [style]="{width: '50vw'}" [closable]="true">
+  <p>Are You Sure Want To Resrve In This Offer</p>
+
+  <p-footer>
+    <p-button label="Success" icon="pi pi-check" (click)="onSuccess(offer.id)" class="mr-3"></p-button>
+    <p-button label="Cancel" icon="pi pi-times" (click)="onCancel()" severity="danger" ></p-button>
+  </p-footer>
+</p-dialog>
+
+
+
+
+

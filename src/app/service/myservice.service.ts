@@ -61,20 +61,32 @@ export class MyserviceService {
     );
   }
 
-  CountReservationsbyStatus():Observable<any>{
+  CountReservationsbyStatus(): Observable<any> {
     return this.http.get<any>(
       'http://localhost:9000/offers/CountReservationsbyStatus'
     );
   }
 
-  CountReservationsbyByMonths(m:number):Observable<any>{
+  CountReservationsbyByMonths(m: number): Observable<any> {
     return this.http.get<any>(
       `http://localhost:9000/offers/CountReservationsbyByMonths/${m}`
     );
   }
-  deleteReservation(id:number):Observable<any>{
+  deleteReservation(id: number): Observable<any> {
     return this.http.delete<any>(
       `http://localhost:9000/offers/deleteReservation/${id}`
-    );}
-
+    );
+  }
+  AddUser(data: User): Observable<User> {
+    return this.http.post<User>('http://localhost:9000/offers/AddUser', data);
+  }
+  createReservation(data: Reservation): Observable<Reservation> {
+    return this.http.post<Reservation>(
+      'http://localhost:9000/offers/createReservation',
+      data
+    );
+  }
+  deleteImage(imageName: string) {
+    return this.http.delete(`http://localhost:9000/offers/images/${imageName}`);
+  }
 }

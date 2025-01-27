@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-between align-items-center pr-3">
+  <img src="assets\Booking-Symbole.jpg" width="100px" class="pb-3" />
+<p-button icon="pi pi-user" severity="info" pTooltip="disconnect" tooltipPosition="left" placeholder="Left" (onClick)="logout()"/>
+</div>
+
+
+
+<img src="assets\Group 1.png" width="100%" height="70%" style="object-fit: cover;"/>
+
+<div class="container mt-3">
+    <div class="row">
+      <div class="col-4" *ngFor="let item of data">
+        <app-card-offer [offer]="item"></app-card-offer>
+      </div>
+    </div>
+  </div>
+  
